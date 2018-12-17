@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import './App.css';
 import './bootstrap.min.css';
 import PropTypes from 'prop-types'
@@ -16,7 +17,7 @@ function Hero() {
 
 function Book({title, onClick}) {
   return (
-    <div className="answer" onClick={() => {onClick(title);}}>
+    <div className="answer" onClick={() => {onClick(title)}}>
       <h4>{title}</h4>
     </div>
   );
@@ -61,8 +62,20 @@ Turn.propTypes = {
   highlight: PropTypes.string.isRequired
 };
 
-function Continue() {
-  return (<div />);
+function Continue({ show, onContinue }) {
+  return (
+    <div className="row continue">
+      { show ?
+        <div className="col-11">
+          <button className="btn btn-primary btn-lg float-right"
+                  onClick={onContinue}>
+            Continue
+          </button>
+        </div>
+        : null
+      }
+    </div>
+  );
 }
 
 function Footer() {
@@ -80,12 +93,14 @@ function Footer() {
   );
 }
 
-function AuthorQuiz({turnData, highlight}) {
+function AuthorQuiz({turnData, highlight, onContinue}) {
   return (
     <div className="container-fluid">
       <Hero />
       <Turn {...turnData} highlight={highlight}/>
-      <Continue />
+      <Continue show={highlight === 'correct'}
+                onContinue={onContinue}/>
+      <p><Link to="/Add">Add an Author</Link></p>
       <Footer />
     </div>
   );
