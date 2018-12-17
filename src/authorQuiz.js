@@ -15,9 +15,9 @@ function Hero() {
   );
 }
 
-function Book({title, onClick}) {
+function Book({title, onAnswerSelected}) {
   return (
-    <div className="answer" onClick={() => {onClick(title)}}>
+    <div className="answer" onClick={() => {onAnswerSelected(title)}}>
       <h4>{title}</h4>
     </div>
   );
@@ -36,15 +36,17 @@ function Turn({author, books, highlight, onAnswerSelected}) {
   return (
     <div className="row turn"
          style={{backgroundColor: highlightToBgColor(highlight)}}>
+
       <div className="col-4 offset-1">
         <img src={author.imageUrl}
              alt="Author"
              className="authorImage"/>
       </div>
+
       <div className="col-6">
         {books.map(title => <Book title={title}
                                   key={title}
-                                  onClick={onAnswerSelected} />)}
+                                  onAnswerSelected={onAnswerSelected} />)}
       </div>
     </div>
   );
@@ -57,6 +59,7 @@ Turn.propTypes = {
     imageSource: PropTypes.string.isRequired,
     books: PropTypes.arrayOf(PropTypes.string).isRequired
   }),
+
   books: PropTypes.arrayOf(PropTypes.string).isRequired,
   onAnswerSelected: PropTypes.func.isRequired,
   highlight: PropTypes.string.isRequired
@@ -93,11 +96,13 @@ function Footer() {
   );
 }
 
-function AuthorQuiz({turnData, highlight, onContinue}) {
+function AuthorQuiz({turnData, highlight, onAnswerSelected,onContinue}) {
   return (
     <div className="container-fluid">
       <Hero />
-      <Turn {...turnData} highlight={highlight}/>
+      <Turn {...turnData}
+            highlight={highlight}
+            onAnswerSelected={onAnswerSelected}/>
       <Continue show={highlight === 'correct'}
                 onContinue={onContinue}/>
       <p><Link to="/Add">Add an Author</Link></p>
