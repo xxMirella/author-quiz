@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './addAuthorForm.css'
 
 class AuthorForm extends React.Component {
@@ -77,5 +78,12 @@ function AddAuthorForm({match, onAddAuthor}) {
   )
 }
 
-export default AddAuthorForm;
+function mapDispatchToProps(dispatch) {
+  return {
+    onAddAuthor: (author) => {
+      dispatch({ type: 'ADD_AUTHOR', author })
+    }
+  };
+}
 
+export default connect(() => {}, mapDispatchToProps)(AddAuthorForm);
