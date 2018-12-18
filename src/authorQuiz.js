@@ -115,8 +115,8 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const AuthorQuiz = connect(mapStateToProps, mapDispatchToProps)(function (
-  {turnData, highlight, onAnswerSelected, onContinue}) {
+const AuthorQuiz = connect(mapStateToProps, mapDispatchToProps)(
+  function ({turnData, highlight, onAnswerSelected, onContinue}) {
     return (
       <div className="container-fluid">
         <Hero />
@@ -129,6 +129,7 @@ const AuthorQuiz = connect(mapStateToProps, mapDispatchToProps)(function (
         <Footer />
       </div>
     );
-  });
+  }
+);
 
 export default AuthorQuiz;
